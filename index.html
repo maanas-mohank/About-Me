@@ -1,0 +1,282 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Maanas</title>
+    <style>
+        Body {
+            background-color: #06140f;
+            color: #d8fbe6;
+            background-image: radial-gradient(#14402b 1px, transparent 1px);
+            background-size: 22px 22px;
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            line-height: 1.6;
+        }
+        a { color: #39ff88; }
+        h2 { margin-top: 40px; }
+        .small { color: #6fa88a; }
+        .photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: 55% 30%;
+            border: 2px solid #39ff88;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 10, 7, 0.95);
+            z-index: 10;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .overlay.on { display: flex; }
+
+        #close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: 1px solid #14402b;
+            color: #d8fbe6;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .stage {
+            position: relative;
+            width: min(560px, 94vw);
+            height: 200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .board {
+            position: relative;
+            width: 120px;
+            height: 88px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size:11px;
+            font-weight: bold;
+        }
+
+        .board::before {
+            content: "";
+            position: absolute;
+            top: -8px; left: 8px; right: 8px;
+            height: 6px;
+            background: repeating-linear-gradient(90deg, #d4af37 0 5px, transparent 5px 9px);
+        }
+        .esp { background: #1b2a4a; border: 2px solid #7aa2ff; animation: espMove 3s infinite; }
+        .pi { background: #1f7a3a; border: 2px solid #a6f3b4; animation: piMove 3s infinite; }
+
+        .chip {
+            background: #c9ced6;
+            color: #111;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .name { margin-top: 4px; color: #fff; }
+
+        .eyes { display: flex; gap: 16px; margin-top: 10px; }
+                .eyes i {
+            position: relative;
+            width: 12px; height: 12px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .eyes i::after {
+            content: "";
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 5px; height: 5px;
+            background: #000;
+            border-radius: 50%;
+        }
+        .eyes i::before {
+            content: "";
+            position: absolute;
+            top: -5px; left: -2px;
+            width: 16px; height: 3px;
+            background: #000;
+            transform: rotate(18deg);
+        }
+        .eyes i:last-child::before { transform: rotate(-18deg); }
+
+        .esp .eyes i::after { left: 6px; }
+        .pi .eyes i::after { left: 1px; }
+
+        .glove {
+            position: absolute;
+            top: 28px;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: #e33;
+            border: 2px solid #900;
+        }
+        .esp .glove { right: -24px; }
+        .pi .glove { left: -24px; }
+
+        .pow {
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            transform: translateX(-50%);
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffb02e;
+            text-shadow: 2px 2px 0 #900;
+            opacity: 0;
+            animation: pow 3s infinite;
+        }
+
+        #line {
+            margin-top: 40px;
+            min-height: 50px;
+            padding: 0 20px;
+            font-family: monospace;
+            color: #39ff88;
+        }
+
+        @keyframes espMove {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(90%); }
+            22% { transform: translateX(0); }
+            45% { transform: translateX(-20%) rotate(-8deg); }
+            55% { transform: translateX(0); }
+            65% { transform: translateX(90%); }
+            72% { transform: translateX(0); }
+            90% { transform: translateX(-20%) rotate(-8deg); }
+            97% { transform: translateX(0); }
+        }
+        @keyframes piMove {
+            0%, 100% { transform: translateX(0); }
+            18% { transform: translateX(20%) rotate(8deg); }
+            28% { transform: translateX(0); }
+            40% { transform: translateX(-90%); }
+            47% { transform: translateX(0); }
+            68% { transform: translateX(20%) rotate(8deg); }
+            78% { transform: translateX(0); }
+            85% { transform: translateX(-90%); }
+            92% { transform: translateX(0); }
+        }
+        @keyframes pow {
+            0%, 14%, 24%, 41%, 51%, 66%, 76%, 86%, 96%, 100% { opacity: 0; }
+            17%, 44%, 69%, 89% {opacity: 1; } 
+        }
+    </style>
+</head>
+<body>
+
+    <img class="photo" src="photo.jpg" alt="Maanas">
+    <h1>Hello, I'm Maanas</h1>
+    <p>Class XI student, I love electronics and hardware.</p>
+
+    <h2>About me</h2>
+    <p>I'm Maanas, a 16 year old with a deep passion for electronics and hardware.
+        I love working on hands-on projects that help me understand how technology
+        actually works under the hood. I'm eager to build a career in this field,
+        where I can innovate and create solutions that make a real difference. I'm 
+        always looking for opportunities to learn, collaborate, and grow, whether
+        through my studies or practical experience</p>
+    <h2>My work</h2>
+    <p><b>AVEM</b>
+    A device that tracks the emissions of a user's vehicle. If they go above the 
+    legal limit, it reduces the vehicle's speed to cut pollution and sends a 
+    notification to the user's phone, recommending nearby PUC centers.<br>
+    <span class="small"> I built the electronics, and the app that recommends 
+        nearby PUC centers and warns the user about their emission level.</span></p>
+
+    <p><b>Grocify</b><br>
+    An app that lets people track their groceries. If an item is about to expire, it 
+    sends a notification 2 days before.<br>
+    <span class="small">The latest version has a working scanner that uses computer vision
+        to tell when fresh produce is about to expire.</span></p>
+    
+    <h2>Explore more</h2>
+    <p><a href="mailto:maanas.mohank@gmail.com">maanas.mohank@gmail.com</a></p>
+    <p><a href="https://www.linkedin.com/in/maanas-mohan-kumar-2350b6285/" target="_blank"
+    rel="noopener">LinkedIn</a></p>
+
+    <div class="overlay" id="fight">
+    <button id="close">✕</button>
+ 
+    <div class="stage">
+      <div class="board esp">
+        <div class="chip">ESP32</div>
+        <div class="eyes"><i></i><i></i></div>
+        <div class="name">ESP32</div>
+        <div class="glove"></div>
+      </div>
+ 
+      <div class="pow">POW!</div>
+ 
+      <div class="board pi">
+        <div class="chip">BCM SoC</div>
+        <div class="eyes"><i></i><i></i></div>
+        <div class="name">Raspberry Pi</div>
+        <div class="glove"></div>
+      </div>
+    </div>
+ 
+    <p id="line"></p>
+  </div>
+ 
+  <script>
+    var fight = document.getElementById('fight');
+    var lineBox = document.getElementById('line');
+    var timer = null;
+    var n = 0;
+ 
+    var lines = [
+      "ESP32: I have Wi-Fi AND Bluetooth built in!",
+      "Raspberry Pi: I run a full Linux computer!",
+      "ESP32: I sip microamps in deep sleep!",
+      "Raspberry Pi: I have HDMI and a whole desktop!",
+      "ESP32: ...and I cost way less than you.",
+      "Both: Fine. The best builds use us together."
+    ];
+ 
+    function showLine() {
+      lineBox.textContent = lines[n % lines.length];
+      n = n + 1;
+    }
+ 
+    function openFight() {
+      n = 0;
+      showLine();
+      fight.classList.add('on');
+      timer = setInterval(showLine, 2200);
+    }
+ 
+    function closeFight() {
+      fight.classList.remove('on');
+      clearInterval(timer);
+    }
+ 
+    document.getElementById('close').onclick = closeFight;
+    fight.onclick = function (e) { if (e.target === fight) closeFight(); };
+ 
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeFight();
+      if (e.key.toLowerCase() === 'f' && !fight.classList.contains('on')) openFight();
+    });
+  </script>
+
+
+</body>
+</html>
