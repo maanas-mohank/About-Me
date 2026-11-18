@@ -1,6 +1,7 @@
 # maanas — personal website & portfolio
 
 a minimal, terminal-and-circuit-inspired personal website showcasing hardware, electronics, and software projects, credentials, and achievements. built with lightweight, dependency-free vanilla html, css, and javascript.
+<img width="1422" height="898" alt="image" src="https://github.com/user-attachments/assets/b60a53e6-2efd-464c-ad34-7e37f1b2fa1e" />
 
 ## highlights
 
